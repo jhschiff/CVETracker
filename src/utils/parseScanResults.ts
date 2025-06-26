@@ -17,7 +17,7 @@ export function parseScanResults(rawData: any): Vulnerability[] {
   return rawData.Results.flatMap((result: any) =>
     Array.isArray(result.Vulnerabilities)
       ? result.Vulnerabilities.map((vuln: any) => {
-          const { VulnerabilityID, Severity: Sev, PkgName, InstalledVersion, FixedVersion, Status } = vuln;
+          const { VulnerabilityID, Severity: Sev, PkgName, InstalledVersion, FixedVersion } = vuln;
           return {
             cveId: VulnerabilityID,
             severity: toSeverityEnum(Sev),
