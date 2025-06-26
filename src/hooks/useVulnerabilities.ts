@@ -9,31 +9,30 @@ export function useVulnerabilities() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    (async () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch('/scan-results.json');
-        if (!res.ok) throw new Error('Failed to fetch scan results');
-        const data = await res.json();
-        // Fetch all KEV vulnerabilities at once
-        const kevData = await fetchCisaKevCatalog();
-        const kevSet = new Set((kevData as { cveID: string }[]).map(v => v.cveID));
-        const parsed = parseScanResults(data).map(vuln => {
-          const alreadyExploited = vuln.exploited === true;
-          return {
+        const [scanRes, kevData] = await Promise.all([
+          fetch('/scan-results.json').then(res => {
+            if (!res.ok) throw new Error('Failed to fetch scan results');
+            return res.json();
+          }),
+          fetchCisaKevCatalog(),
+        ]);
+        const kevSet = new Set(kevData.map(v => v.cveID));
+        setVulnerabilities(
+          parseScanResults(scanRes).map(vuln => ({
             ...vuln,
-            exploited: alreadyExploited || kevSet.has(vuln.cveId),
-          };
-        });
-        setVulnerabilities(parsed);
+            exploited: kevSet.has(vuln.cveId),
+          }))
+        );
       } catch (err: any) {
         setError(err.message || 'Unknown error');
       } finally {
         setLoading(false);
       }
-    }
-    fetchData();
+    })();
   }, []);
 
   return { vulnerabilities, loading, error };
