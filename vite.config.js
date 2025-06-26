@@ -18,11 +18,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/kev': {
-        target: 'https://kevin.gtfkd.com',
+        target: 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json',
         changeOrigin: true,
+        rewrite: (path) => '',
         secure: false,
-        // Optionally, rewrite the path if needed:
-        // rewrite: (path) => path.replace(/^\/kev/, '/kev'),
       },
     },
   }
