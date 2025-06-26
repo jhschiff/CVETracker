@@ -1,5 +1,5 @@
 import type { Vulnerability } from '../types/vulnerability';
-import { Severity } from '../types/vulnerability';
+import { Severity } from '../types/severity';
 
 function toSeverityEnum(sev: any): Severity {
   if (!sev || typeof sev !== 'string') return Severity.UNKNOWN;
