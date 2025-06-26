@@ -14,5 +14,16 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
     },
+  },
+  server: {
+    proxy: {
+      '/kev': {
+        target: 'https://kevin.gtfkd.com',
+        changeOrigin: true,
+        secure: false,
+        // Optionally, rewrite the path if needed:
+        // rewrite: (path) => path.replace(/^\/kev/, '/kev'),
+      },
+    },
   }
 });

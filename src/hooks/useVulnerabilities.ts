@@ -16,7 +16,9 @@ export function useVulnerabilities() {
         const res = await fetch('/scan-results.json');
         if (!res.ok) throw new Error('Failed to fetch scan results');
         const data = await res.json();
-        const kevSet = await fetchCisaKevCatalog();
+        // Fetch all KEV vulnerabilities at once
+        const kevData = await fetchCisaKevCatalog();
+        const kevSet = new Set((kevData as { cveID: string }[]).map(v => v.cveID));
         const parsed = parseScanResults(data).map(vuln => {
           const alreadyExploited = vuln.exploited === true;
           return {

@@ -1,35 +1,22 @@
 import axios from 'axios';
 
 /**
- * Fetches the CISA Known Exploited Vulnerabilities (KEV) Catalog as a Set of CVE IDs.
- * This allows efficient checking if a vulnerability is known to be actively exploited.
+ * Fetches all CISA Known Exploited Vulnerabilities (KEV) in a single request.
+ * Returns an array of vulnerabilities: [{ cveID: ... }, ...]
  *
- * Usage: const kevSet = await fetchCisaKevCatalog(); kevSet.has('CVE-2023-1234')
+ * Usage: const vulns = await fetchCisaKevCatalog();
  */
-export async function fetchCisaKevCatalog(): Promise<Set<string>> {
-  const url = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
+export async function fetchCisaKevCatalog(): Promise<Array<{ cveID: string }>> {
+  const url = `/kev?page=1&per_page=2000`;
   try {
     const response = await axios.get(url);
-    // The vulnerabilities are in response.data.vulnerabilities or response.data (array)
-    let kevList: any[] = [];
-    if (Array.isArray(response.data)) {
-      kevList = response.data;
-    } else if (Array.isArray(response.data.vulnerabilities)) {
-      kevList = response.data.vulnerabilities;
-    } else if (Array.isArray(response.data.Known_Exploited_Vulnerabilities)) {
-      kevList = response.data.Known_Exploited_Vulnerabilities;
+    // If the data is wrapped in a property (e.g., response.data.vulnerabilities)
+    if (Array.isArray(response.data.vulnerabilities)) {
+      return response.data.vulnerabilities.filter((item: { cveID: string }) => typeof item.cveID === 'string');
     }
-    // Each entry should have a CVE ID field, usually 'cveID' or 'cveId' or 'cve'
-    const cveSet = new Set<string>();
-    kevList.forEach((item) => {
-      const cve = item.cveID || item.cveId || item.cve;
-      if (typeof cve === 'string') {
-        cveSet.add(cve);
-      }
-    });
-    return cveSet;
+    return [];
   } catch (error) {
     console.error('Failed to fetch CISA KEV catalog:', error);
-    return new Set();
+    return [];
   }
 } 
