@@ -15,14 +15,14 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/kev': {
-        target: 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json',
-        changeOrigin: true,
-        rewrite: (path) => '',
-        secure: false,
-      },
-    },
-  }
+  // server: {
+  //   proxy: {
+  //     '/kev': {
+  //       target: 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json',
+  //       changeOrigin: true,
+  //       rewrite: (path) => '',
+  //       secure: false,
+  //     },
+  //   },
+  // }
 });

@@ -5,7 +5,7 @@
  * Usage: const vulns = await fetchCisaKevCatalog();
  */
 export async function fetchCisaKevCatalog(): Promise<Array<{ cveID: string }>> {
-  const url = import.meta.env.VITE_KEV_URL || 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
+  const url = 'https://cvetracker.onrender.com/kev';
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error('Failed to fetch CISA KEV catalog');
