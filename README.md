@@ -1,6 +1,6 @@
 ## Overview
 
-You'll create a vulnerability management interface that:
+Create a vulnerability management interface that:
 
 - Parses security scan data into a sortable and searchable table
 - Checks against CISA's public "known exploited vulnerabilities (kev) catalog"
@@ -82,10 +82,6 @@ If you have any additional functionality you want to add that you think would be
    ```
 
    - Figma designs are linked [`here`](https://www.figma.com/design/KutSnpcDGQKU9DzyJAI5of/CVE-Tracker?node-id=0-1&m=dev&t=KAu6hoz0eViJKbUP-1)
-
-## Evaluation Criteria
-
-We'll assess your submission based on:
 
 ### Code Quality
 
