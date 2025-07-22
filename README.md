@@ -1,8 +1,4 @@
-# Vulnerability Table Assessment
-
-Welcome to Second Front Systems' React take-home assessment! This project simulates working with our Game Warden application, where you'll build components similar to what our team creates daily.
-
-## Assessment Overview
+## Overview
 
 You'll create a vulnerability management interface that:
 
@@ -117,23 +113,7 @@ We'll assess your submission based on:
 - Appropriate technology choices
 - Code organization and architecture
 
-## Submission Guidelines
-
-1. **Time Expectation**: 2-4 hours of work over 2 days
-2. **Submission**: Compress the project directory and send via email or file sharing
-3. **Documentation**: Be prepared to discuss:
-   - Your approach and key decisions
-   - Any trade-offs you made
-   - How to run and test your solution
-   - What you'd improve with more time
-
 ## Sample Data & Resources
 
 - `/sample-data/` - Example vulnerability scan outputs
 - **CISA KEV**: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
-
-## Questions?
-
-If you have any questions about the requirements or run into technical issues, don't hesitate to reach out. We want you to succeed and show your best work!
-
-Good luck, and we look forward to seeing your solution!
